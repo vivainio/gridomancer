@@ -77,5 +77,4 @@ class Gridomancer {
   }
 }
 
-// exposed as global
 window["Gridomancer"] = Gridomancer;
