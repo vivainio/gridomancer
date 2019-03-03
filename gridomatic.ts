@@ -11,11 +11,11 @@ class Gridomatic {
   loadUrl(url: string) {
     fetch(url)
       .then(r => r.json())
-      .then(resp => formatResponse(resp));
+      .then(resp => formatResponse(resp, this.el));
   }
 }
 
-function formatResponse(resp) {
+function formatResponse(resp: { Header; Rows;}, element: Element) {
   console.log(resp);
   const headerArr = resp.Header;
   const coldefs = headerArr.map(rh => ({
@@ -40,9 +40,8 @@ function formatResponse(resp) {
     rowData: rows
   };
   //console.log('rows', rows)
-  var eGridDiv = document.querySelector("#myGrid");
 
-  new agGrid.Grid(eGridDiv, gridOptions);
+  new agGrid.Grid(element, gridOptions);
 }
 
 window['Gridomatic'] = Gridomatic;
