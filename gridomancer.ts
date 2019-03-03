@@ -1,6 +1,7 @@
 // from ag-grid
 declare var agGrid;
 
+
 class Gridomatic {
   el: Element;
 
@@ -13,6 +14,16 @@ class Gridomatic {
       .then(r => r.json())
       .then(resp => formatResponse(resp, this.el));
   }
+
+  loadByQueryParam(paramName: string) {
+    const params = new URLSearchParams(document.location.search);
+    const url = params.get(paramName);
+    if (url) {
+        const decoded = decodeURIComponent(url);
+        this.loadUrl(decoded);
+    }
+  }
+
 }
 
 function formatResponse(resp: { Header; Rows;}, element: Element) {
@@ -43,5 +54,5 @@ function formatResponse(resp: { Header; Rows;}, element: Element) {
 
   new agGrid.Grid(element, gridOptions);
 }
-
+// exposed as global
 window['Gridomatic'] = Gridomatic;
