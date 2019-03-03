@@ -5,7 +5,12 @@ class Gridomancer {
   el: Element;
   filter: HTMLInputElement;
   grid: any;
-  gridOptions: { api; defaultColDef: { filter: boolean; sortable: boolean; resizable: boolean; }; columnDefs: any; rowData: any; };
+  gridOptions: {
+    api?;
+    defaultColDef: { filter: boolean; sortable: boolean; resizable: boolean };
+    columnDefs: any;
+    rowData: any;
+  };
 
   setEl(element: Element) {
     this.el = element;
@@ -15,8 +20,8 @@ class Gridomancer {
   setFilter(element: HTMLInputElement) {
     this.filter = element;
     element.addEventListener("input", ev => {
-      this.gridOptions.api.setQuickFilter(this.filter.value)
-
+      if (this.gridOptions && this.gridOptions.api)
+        this.gridOptions.api.setQuickFilter(this.filter.value);
     });
     return this;
   }
@@ -32,7 +37,6 @@ class Gridomancer {
       .then(r => r.json())
       .then(resp => {
         this.grid = this.startWithData(resp, this.el);
-        console.log('grid is', this.grid)
       });
   }
 
@@ -71,7 +75,6 @@ class Gridomancer {
     };
     new agGrid.Grid(element, this.gridOptions);
   }
-
 }
 
 // exposed as global
