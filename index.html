@@ -14,9 +14,8 @@
     <script src="gridomatic.ts"></script>
 
     <script>
-const gm = new Gridomatic();
-gm.setEl(document.querySelector("#myGrid"))
-gm.loadUrl("./ia_invoice.json")
+      new Gridomatic().setEl(document.querySelector("#myGrid")).loadByQueryParam("grid")
+// new Gridomatic().setEl(document.querySelector("#myGrid")).loadUrl("./invoice.json")
     </script>
   </body>
 </html>
