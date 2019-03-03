@@ -2,13 +2,34 @@
 declare var agGrid;
 
 
-class Gridomatic {
+class Gridomancer {
   el: Element;
+  filter: Element;
+
+
 
   setEl(element: Element) {
     this.el = element;
     return this;
   }
+
+  setFilter(element: Element) {
+    this.filter = element;
+    element.addEventListener("input", ev => {
+
+
+
+    })
+    return this;
+
+  }
+
+  mountDefaults() {
+    this.setFilter(document.querySelector("#gridomancer-quickfilter"));
+    this.setEl(document.querySelector("#gridomancer-grid"));
+    return this;
+  }
+
   loadUrl(url: string) {
     fetch(url)
       .then(r => r.json())
@@ -45,7 +66,9 @@ function formatResponse(resp: { Header; Rows;}, element: Element) {
   const gridOptions = {
     defaultColDef: {
       filter: true,
-      sortable: true
+      sortable: true,
+      resizable: true,
+
     },
     columnDefs: coldefs,
     rowData: rows
@@ -55,4 +78,4 @@ function formatResponse(resp: { Header; Rows;}, element: Element) {
   new agGrid.Grid(element, gridOptions);
 }
 // exposed as global
-window['Gridomatic'] = Gridomatic;
+window['Gridomancer'] = Gridomancer;

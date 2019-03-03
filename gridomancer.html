@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
   </head>
   <body>
+    <input id="gridomancer-quickfilter">
     <div style="height: 98%; border: 1px solid;">
-      <div id="myGrid" style="height: 100%;width:100%;" class="ag-theme-balham"></div>
+      <div id="gridomancer-grid" style="height: 100%;width:100%;" class="ag-theme-balham"></div>
     </div>
 
     <script src="gridomancer.ts"></script>
 
     <script>
-      new Gridomatic().setEl(document.querySelector("#myGrid")).loadByQueryParam("grid")
+      new Gridomancer().mountDefaults().loadByQueryParam("grid")
       // new Gridomatic().setEl(document.querySelector("#myGrid")).loadUrl("./table-to-render.json")
     </script>
   </body>
