@@ -8,6 +8,6 @@
     "typescript": "^3.3.3333"
   },
   "scripts": {
-    "prepare": "parcel build --no-content-hash gridomancer.html"
+    "prepare": "parcel build --no-content-hash --public-url ./ gridomancer.html"
   }
 }
