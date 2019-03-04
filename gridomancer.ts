@@ -5,8 +5,15 @@ class Gridomancer {
   el: Element;
   filter: HTMLInputElement;
   grid: any;
+  gridApi: {
+    autoSizeColumns: any;
+    resizeColumnsToFit: any;
+    setQuickFilter: any;
+
+  };
+  onGridReady;
   gridOptions: {
-    api?;
+    onGridReady;
     defaultColDef: { filter: boolean; sortable: boolean; resizable: boolean };
     columnDefs: any;
     rowData: any;
@@ -20,8 +27,8 @@ class Gridomancer {
   setFilter(element: HTMLInputElement) {
     this.filter = element;
     element.addEventListener("input", ev => {
-      if (this.gridOptions && this.gridOptions.api)
-        this.gridOptions.api.setQuickFilter(this.filter.value);
+      if (this.gridApi)
+        this.gridApi.setQuickFilter(this.filter.value);
     });
     return this;
   }
@@ -71,7 +78,11 @@ class Gridomancer {
         resizable: true
       },
       columnDefs: coldefs,
-      rowData: rows
+      rowData: rows,
+      onGridReady: (ev) => {
+        this.gridApi = ev.api
+        this.gridApi.autosizeColumns();
+      }
     };
     new agGrid.Grid(element, this.gridOptions);
   }
