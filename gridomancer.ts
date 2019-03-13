@@ -14,10 +14,14 @@ class Gridomancer {
   onGridReady;
   gridOptions: {
     onGridReady;
-    defaultColDef: { filter: boolean; sortable: boolean; resizable: boolean };
+    onCellEditingStopped;
+    defaultColDef: { editable: boolean; filter: boolean; sortable: boolean; resizable: boolean };
     columnDefs: any;
     rowData: any;
   };
+
+  changes = [];
+
 
   setEl(element: Element) {
     this.el = element;
@@ -73,6 +77,7 @@ class Gridomancer {
 
     this.gridOptions = {
       defaultColDef: {
+        editable: true,
         filter: true,
         sortable: true,
         resizable: true
@@ -81,8 +86,18 @@ class Gridomancer {
       rowData: rows,
       onGridReady: (ev) => {
         this.gridApi = ev.api
-        this.gridApi.autosizeColumns();
+        //this.gridApi.autoSizeColumns();
+      },
+      onCellEditingStopped:(event) => {
+        const built = {
+          col: event.column.colId,
+          value: event.value,
+          row: event.data
+        }
+        this.changes.push(built);
+        console.log(this.changes)
       }
+
     };
     new agGrid.Grid(element, this.gridOptions);
   }
