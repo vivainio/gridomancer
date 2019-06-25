@@ -19,9 +19,8 @@ class Gridomancer {
     columnDefs: any;
     rowData: any;
   };
-
+  onSave;
   changes = [];
-
 
   setEl(element: Element) {
     this.el = element;
@@ -40,6 +39,12 @@ class Gridomancer {
   mountDefaults() {
     this.setFilter(document.querySelector("#gridomancer-quickfilter"));
     this.setEl(document.querySelector("#gridomancer-grid"));
+    const saveButton = document.querySelector("#gridomancer-save")
+    saveButton.addEventListener("click", () => {
+      if (this.onSave) {
+        this.onSave(this.changes);
+      }
+    });
     return this;
   }
 
@@ -58,6 +63,7 @@ class Gridomancer {
       const decoded = decodeURIComponent(url);
       this.loadUrl(decoded);
     }
+    return this;
   }
 
   private startWithData(resp: { Header; Rows }, element: Element) {
@@ -95,7 +101,6 @@ class Gridomancer {
           row: event.data
         }
         this.changes.push(built);
-        console.log(this.changes)
       }
 
     };

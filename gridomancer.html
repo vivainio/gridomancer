@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
   </head>
   <body>
-    <input id="gridomancer-quickfilter">
+    <input id="gridomancer-quickfilter"><button id="gridomancer-save" type="button" style="float: right">save</button>
     <div style="height: 97%; border: 1px solid;">
       <div id="gridomancer-grid" style="height: 100%;width:100%;" class="ag-theme-balham"></div>
     </div>
@@ -15,7 +15,10 @@
     <script src="gridomancer.ts"></script>
 
     <script>
-      (new Gridomancer()).mountDefaults().loadByQueryParam("grid")
+      function mySave(changes) {
+        console.log('mysave', changes);
+      };
+      (new Gridomancer()).mountDefaults().loadByQueryParam("grid").onSave = mySave
     </script>
   </body>
 </html>
